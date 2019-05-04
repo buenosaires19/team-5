@@ -1,0 +1,35 @@
+*{
+    margin:0;
+    padding: 0;
+}
+.quienes-somos{
+    text-align: center;
+    font-size: 1.2em;
+}
+.banner{
+    background-color: #8edee5; }
+h1, h2 {color: #339900;}
+#registro {
+    text-align: right;
+
+}
+
+footer {
+   height: 10%;
+  width: 100%;
+    background-color: gray;
+    position: relative;
+    bottom: 0;
+    
+
+}
+
+#imagen {
+    height: 100px;
+}
+
+#socio {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
