@@ -1,89 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package socio.entities;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-
-/**
- *
- * @author seba
- */
-@Entity
-@Table(name = "mentor", catalog = "socios", schema = "")
-@XmlRootElement
-@NamedQueries({
-	@NamedQuery(name = "Mentor.findAll", query = "SELECT m FROM Mentor m")
-	, @NamedQuery(name = "Mentor.findByIdmentor", query = "SELECT m FROM Mentor m WHERE m.idmentor = :idmentor")
-	, @NamedQuery(name = "Mentor.findByNombrementor", query = "SELECT m FROM Mentor m WHERE m.nombrementor = :nombrementor")
-	, @NamedQuery(name = "Mentor.findByApellidomentor", query = "SELECT m FROM Mentor m WHERE m.apellidomentor = :apellidomentor")
-	, @NamedQuery(name = "Mentor.findByMailmentor", query = "SELECT m FROM Mentor m WHERE m.mailmentor = :mailmentor")})
-public class Mentor implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idmentor", nullable = false)
-	private Integer idmentor;
-	@Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "nombrementor", nullable = false, length = 255)
+public class Mentor {
+	private int id;
 	private String nombrementor;
-	@Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "apellidomentor", nullable = false, length = 255)
 	private String apellidomentor;
-	@Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "mailmentor", nullable = false, length = 255)
 	private String mailmentor;
-	@JoinColumn(name = "regionid", referencedColumnName = "idregion", nullable = false)
-    @ManyToOne(optional = false)
-	private Region regionid;
-	@JoinColumn(name = "profesionid", referencedColumnName = "idprofesion", nullable = false)
-    @ManyToOne(optional = false)
-	private Profesion profesionid;
+	private int regionid;
+	private int profesionid;
 
-	public Mentor() {
-	}
+	public String getTable() { return "mentor"; }
+	
+	public Mentor() {	}
 
-	public Mentor(Integer idmentor) {
-		this.idmentor = idmentor;
-	}
-
-	public Mentor(Integer idmentor, String nombrementor, String apellidomentor, String mailmentor) {
-		this.idmentor = idmentor;
+	public Mentor(String nombrementor, String apellidomentor, String mailmentor, int regionid, int profesionid) {
 		this.nombrementor = nombrementor;
 		this.apellidomentor = apellidomentor;
 		this.mailmentor = mailmentor;
+		this.regionid = regionid;
+		this.profesionid = profesionid;
 	}
 
-	public Integer getIdmentor() {
-		return idmentor;
+	public Mentor(int id, String nombrementor, String apellidomentor, String mailmentor, int regionid, int profesionid) {
+		this.id = id;
+		this.nombrementor = nombrementor;
+		this.apellidomentor = apellidomentor;
+		this.mailmentor = mailmentor;
+		this.regionid = regionid;
+		this.profesionid = profesionid;
 	}
 
-	public void setIdmentor(Integer idmentor) {
-		this.idmentor = idmentor;
+	@Override
+	public String toString() {
+		return "Mentor{" + "id=" + id + ", nombrementor=" + nombrementor + ", apellidomentor=" + apellidomentor + ", mailmentor=" + mailmentor + ", regionid=" + regionid + ", profesionid=" + profesionid + '}';
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNombrementor() {
@@ -110,45 +66,19 @@ public class Mentor implements Serializable {
 		this.mailmentor = mailmentor;
 	}
 
-	public Region getRegionid() {
+	public int getRegionid() {
 		return regionid;
 	}
 
-	public void setRegionid(Region regionid) {
+	public void setRegionid(int regionid) {
 		this.regionid = regionid;
 	}
 
-	public Profesion getProfesionid() {
+	public int getProfesionid() {
 		return profesionid;
 	}
 
-	public void setProfesionid(Profesion profesionid) {
+	public void setProfesionid(int profesionid) {
 		this.profesionid = profesionid;
 	}
-
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (idmentor != null ? idmentor.hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Mentor)) {
-			return false;
-		}
-		Mentor other = (Mentor) object;
-		if ((this.idmentor == null && other.idmentor != null) || (this.idmentor != null && !this.idmentor.equals(other.idmentor))) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "socio.entities.Mentor[ idmentor=" + idmentor + " ]";
-	}
-	
 }
