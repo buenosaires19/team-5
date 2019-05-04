@@ -5,107 +5,161 @@
  */
 package socio.entities;
 
-public class Usuario {
-	
-	private String nombre;
-	private String apellido;
-	private int dni;
-	private String ciudad;
-	private String provincia;
-	private int codpostal;
-	private String calle;
-	private int altura;
-	
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author seba
+ */
+@Entity
+@Table(name = "usuario")
+@XmlRootElement
+@NamedQueries({
+	@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+	, @NamedQuery(name = "Usuario.findByIdusuario", query = "SELECT u FROM Usuario u WHERE u.idusuario = :idusuario")
+	, @NamedQuery(name = "Usuario.findByNombreusuario", query = "SELECT u FROM Usuario u WHERE u.nombreusuario = :nombreusuario")
+	, @NamedQuery(name = "Usuario.findByApellidousuario", query = "SELECT u FROM Usuario u WHERE u.apellidousuario = :apellidousuario")
+	, @NamedQuery(name = "Usuario.findByMailusuario", query = "SELECT u FROM Usuario u WHERE u.mailusuario = :mailusuario")})
+public class Usuario implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idusuario")
+	private Integer idusuario;
+	@Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "nombreusuario")
+	private String nombreusuario;
+	@Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "apellidousuario")
+	private String apellidousuario;
+	@Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "mailusuario")
+	private String mailusuario;
+	@JoinColumn(name = "regionid", referencedColumnName = "idregion")
+    @ManyToOne(optional = false)
+	private Region regionid;
+	@JoinColumn(name = "nivelid", referencedColumnName = "idnivel")
+    @ManyToOne(optional = false)
+	private Nivel nivelid;
+	@JoinColumn(name = "videoid", referencedColumnName = "idvideos")
+    @ManyToOne(optional = false)
+	private Videos videoid;
+
 	public Usuario() {
-		nombre="";
-		apellido="";
-		dni=0;
-		ciudad="";
-		provincia="";
-		codpostal=0;
-		calle="";
-		altura=0;
 	}
-	
-	public Usuario(String nombre,String ap,int dni,String ciudad,String provincia,int codpostal,String calle,int alt) {
-		this.nombre=nombre;
-		this.apellido=ap;
-		this.dni=dni;
-		this.ciudad=ciudad;
-		this.provincia=provincia;
-		this.codpostal=codpostal;
-		this.calle=calle;
-		altura=alt;
+
+	public Usuario(Integer idusuario) {
+		this.idusuario = idusuario;
 	}
-	
-	public void setNombre(String nombre) {
-		this.nombre=nombre;
+
+	public Usuario(Integer idusuario, String nombreusuario, String apellidousuario, String mailusuario) {
+		this.idusuario = idusuario;
+		this.nombreusuario = nombreusuario;
+		this.apellidousuario = apellidousuario;
+		this.mailusuario = mailusuario;
 	}
-	
-	public String getNombre() {
-		return nombre;
+
+	public Integer getIdusuario() {
+		return idusuario;
 	}
-	
-	public void setApellido(String ape) {
-		apellido=ape;
+
+	public void setIdusuario(Integer idusuario) {
+		this.idusuario = idusuario;
 	}
-	
-	public String getApellido() {
-		return apellido;
+
+	public String getNombreusuario() {
+		return nombreusuario;
 	}
-	
-	public void setDni(int dni) {
-		this.dni=dni;
+
+	public void setNombreusuario(String nombreusuario) {
+		this.nombreusuario = nombreusuario;
 	}
-	
-	public int getDni() {
-		return dni;
+
+	public String getApellidousuario() {
+		return apellidousuario;
 	}
-	
-	public void setCiudad(String ciudad) {
-		this.ciudad=ciudad;
+
+	public void setApellidousuario(String apellidousuario) {
+		this.apellidousuario = apellidousuario;
 	}
-	
-	public String getCiudad() {
-		return ciudad;
+
+	public String getMailusuario() {
+		return mailusuario;
 	}
-	
-	public void setProvincia(String prov) {
-		provincia=prov;
+
+	public void setMailusuario(String mailusuario) {
+		this.mailusuario = mailusuario;
 	}
-	
-	public String getProvincia() {
-		return provincia;
+
+	public Region getRegionid() {
+		return regionid;
 	}
-	
-	public void setCodPostal(int cod) {
-		codpostal=cod;
+
+	public void setRegionid(Region regionid) {
+		this.regionid = regionid;
 	}
-	
-	public int getCodPostal() {
-		return codpostal;
+
+	public Nivel getNivelid() {
+		return nivelid;
 	}
-	
-	public void setCalle(String calle) {
-		this.calle=calle;
+
+	public void setNivelid(Nivel nivelid) {
+		this.nivelid = nivelid;
 	}
-	
-	public String getCalle() {
-		return calle;
+
+	public Videos getVideoid() {
+		return videoid;
 	}
-	
-	public void setAltura(int alt) {
-		altura=alt;
+
+	public void setVideoid(Videos videoid) {
+		this.videoid = videoid;
 	}
-	
-	public int getAltura() {
-		return altura;
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (idusuario != null ? idusuario.hashCode() : 0);
+		return hash;
 	}
-	
-	//nombre, apellido, dni, ciudad, provincia, calle, nro, cod postal
-	
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Usuario)) {
+			return false;
+		}
+		Usuario other = (Usuario) object;
+		if ((this.idusuario == null && other.idusuario != null) || (this.idusuario != null && !this.idusuario.equals(other.idusuario))) {
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public String toString() {
-		return nombre+" "+apellido+"\nDNI: "+dni+"\nProvincia: "+provincia+"\nCiudad: "+ciudad+"\nCódigo Postal: "+codpostal+"\nDirección: "+calle+" "+altura;
+		return "socio.entities.Usuario[ idusuario=" + idusuario + " ]";
 	}
+	
 }

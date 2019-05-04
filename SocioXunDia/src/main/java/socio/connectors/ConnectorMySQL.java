@@ -5,7 +5,7 @@ public class ConnectorMySQL {
     private static String driver="com.mysql.cj.jdbc.Driver";
     private static String user="root";
     private static String pass="root";
-    private static String url="jdbc:mysql://localhost:3306/cursoJavaWebNegocio";
+    private static String url="jdbc:mysql://localhost:3306/mydb";
     private static Connection conn=null;
     private ConnectorMySQL(){}
     public synchronized static Connection getConnection(){ 
